@@ -1,7 +1,6 @@
 numpy
 pandas
-sci-kit-learn
+scikit-learn
 xgboost
-logging
 seaborn
 matplotlib
