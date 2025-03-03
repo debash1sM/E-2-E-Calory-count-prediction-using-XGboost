@@ -1,7 +1,7 @@
-from setuptools import setup, find_packages
+from setuptools import setup, find_packages # type: ignore
 
 setup(
-    name='E2E Calory Prediction',
+    name='CaloryPrediction',
     version='0.1',
     packages=find_packages(),
     install_requires=[
