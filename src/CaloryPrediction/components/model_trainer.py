@@ -37,7 +37,7 @@ class ModelTrainer:
             'Ridge':Ridge(),
             'Elasticnet':ElasticNet(),
             'XGBRegressor':XGBRegressor(objective ='reg:squarederror', learning_rate = 0.1, max_depth = 5, n_estimators = 1000)
-        }
+            }
             
             model_report:dict=evaluate_model(X_train,y_train,X_test,y_test,models)
             print(model_report)
@@ -58,10 +58,10 @@ class ModelTrainer:
             logging.info(f'Best Model Found , Model Name : {best_model_name} , R2 Score : {best_model_score}')
 
             save_object(
-                 file_path=self.model_trainer_config.trained_model_file_path,
-                 obj=best_model
+                file_path=self.model_trainer_config.trained_model_file_path,
+                obj=best_model
             )
-          
+            logging.info('Model Training Success')   
 
         except Exception as e:
             logging.info('Exception occured at Model Training')
