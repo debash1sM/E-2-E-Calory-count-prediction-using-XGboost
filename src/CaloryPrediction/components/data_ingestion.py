@@ -29,7 +29,6 @@ class DataIngestion():
 
             logging.info("Merging the dataframes")
             df = pd.merge(calories,exercise,on="User_ID")
-            df.drop(columns=["User_ID"],inplace=True)
 
             logging.info(df.shape)
             
