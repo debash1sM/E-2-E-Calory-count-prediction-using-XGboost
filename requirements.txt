@@ -4,6 +4,7 @@ scikit-learn
 xgboost
 seaborn
 matplotlib
+ipykernel
 flask
 mysql-connector-python
 gunicorn
