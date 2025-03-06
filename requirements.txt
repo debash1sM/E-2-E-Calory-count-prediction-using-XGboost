@@ -7,4 +7,5 @@ matplotlib
 ipykernel
 flask
 mysql-connector-python
+gunicorn
 -e .
