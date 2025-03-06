@@ -55,4 +55,4 @@ def predict():
         return render_template('index.html', prediction_text='An error occurred during prediction.')
 
 if __name__ == "__main__":
-    app.run(port=1111,debug=True)
+    app.run(debug=True)
