@@ -2,7 +2,16 @@ from flask import Flask, request, render_template
 from src.CaloryPrediction.pipelines.prediction_pipeline import Prediction, CustomClass
 from src.CaloryPrediction.logger import logging
 from src.CaloryPrediction.exception import customException
+import mysql.connector
 import numpy as np
+
+# Database configuration
+db_config = {
+    'user': 'root',
+    'password': 'mysql',
+    'host': 'localhost',
+    'database': 'calory_prediction'
+}
 
 app = Flask(__name__)
 
@@ -46,9 +55,27 @@ def predict():
         # Log the prediction
         logging.info(f"Prediction: {prediction} :: type = {type(prediction[0])}")
 
-        formatted_prediction = f'{prediction[0]:.2f}'
+        # Convert numpy.float32 to native Python float
+        prediction_value = float(prediction[0])
 
-        return render_template('result.html', prediction=formatted_prediction)
+        formatted_prediction = f'{prediction_value:.2f}'
+
+        try:
+            # Insert data into MySQL database
+            conn = mysql.connector.connect(**db_config)
+            cursor = conn.cursor()
+            insert_query = """
+            INSERT INTO predictions (gender, age, height, weight, duration, heart_rate, body_temp, prediction)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            """
+            cursor.execute(insert_query, (Gender, Age, Height, Weight, Duration, Heart_Rate, Body_Temp, prediction_value))
+            conn.commit()
+            cursor.close()
+            conn.close()
+        except customException as e:
+            logging.error(e)
+        finally:
+            return render_template('result.html', prediction=formatted_prediction)
 
     except customException as e:
         logging.error(e)

@@ -6,4 +6,5 @@ seaborn
 matplotlib
 ipykernel
 flask
+mysql-connector-python
 -e .

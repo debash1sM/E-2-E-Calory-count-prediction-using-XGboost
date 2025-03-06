@@ -18,13 +18,19 @@ $(document).ready(function() {
         let isValid = true;
         $('.error-message').remove();
         $('input, select').removeClass('error');
-
+        
+        const gender = $('#Gender').val();
         const age = parseInt($('#Age').val());
         const height = parseFloat($('#Height').val());
         const weight = parseFloat($('#Weight').val());
         const duration = parseFloat($('#Duration').val());
         const heartRate = parseFloat($('#Heart_Rate').val());
         const bodyTemp = parseFloat($('#Body_Temp').val());
+        
+        if(gender == -1) { 
+            $('#Gender').addClass('error').after('<div class="error-message">Please select gender.</div>');
+            isValid = false;
+        } 
 
         if (age <= 0 || age > 120) {
             $('#Age').addClass('error').after('<div class="error-message">Age must be between 1 and 120.</div>');
@@ -55,7 +61,7 @@ $(document).ready(function() {
     }
 
     // Event listener for input and select fields
-    $('form input, form select').on('keyup', function() {
+    $('form input, form select').on('keyup change input', function() {
         if (checkUnnaturalInput() && checkFields()) {
             $('#submit').prop('disabled', false);
         } else {
